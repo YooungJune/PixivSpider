@@ -3,25 +3,24 @@ from src import data
 
 
 def menu_2():
-    temp = input("请选择爬虫模式：(0~2)\n1.爬取日榜\n2.下载图片\n0.退出\n") or 0
-    i = int(temp)
+    i = 1
     if i == 0:
         exit(0)
     elif i == 1:
-        temp = int(input("请选择爬取页数:(1~6,默认为2)\n一页50个结果\n最大是6，为了虫虫们的未来！\n") or 2)
-        if (temp >= 1) & (temp <= 6):
+        temp = 1
+        if temp == 1:
             print("开始爬取日榜数据")
             num = temp
-            database = data.get_rank(proxy, num)
-            temp = int(input("当遇到图集时，是否要爬取该图集所有图片?（默认:否）\n1.是\n2.否\n") or 2)
-            if temp == 1:
+            database = data.get_rank( num)
+            a = 2
+            if a == 1:
                 num = 1
-            elif temp == 2:
+            elif a == 2:
                 num = 0
             else:
                 print("选项错误！\n")
                 menu_2()
-            data.get_rank_picture_source(database, proxy, num)
+            data.get_rank_picture_source(database, num)#proxy
         else:
             print("输入的值超出范围！\n")
             menu_2()
@@ -53,8 +52,6 @@ def menu():
 
 if __name__ == '__main__':
     print("正在初始化")
-    connect.get_config()
-    proxy = connect.use_proxy()
     connect.cookies_login()
     menu_2()
     print("done!")
