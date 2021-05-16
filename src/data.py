@@ -5,13 +5,14 @@ import os
 import re
 import json
 import time
+import src.config as config
 
 now_time = time.localtime(time.time())
 mday = str(now_time.tm_mday)
 mon = str(now_time.tm_mon)
 myear = str(now_time.tm_year)
-path = "/root/pixiv/" #保存路径
-path = path+myear+'/'+mon+'/'+mday+'/'
+path = config.path
+path = path+myear+'/'+mon+'/'
 if os.path.exists(path) == False:
     os.makedirs(path)
 
@@ -52,6 +53,8 @@ def get_rank(num, database={}):
                 'view': view
             }
             database[artworks_id] = item_data
+            if int(rank) >= config.pic_num:
+                 break
             '''
             # 以下用于检查输出结果
             print("#" + rank + "\ntitle: " + title + "\nartist: " + artist + "\nid: " + id + "\ndate: " + date + 
